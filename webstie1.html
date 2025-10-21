@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我们的四周年纪念</title>
+<style>
+body {
+  margin: 0;
+  font-family: "Noto Serif SC", "Microsoft YaHei", serif;
+  background-color: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+.photo {
+  width: 60%;
+  max-width: 500px;
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 0 0 20px rgba(255, 150, 200, 0.4);
+  transition: transform 0.4s ease;
+}
+.photo:hover {
+  transform: scale(1.05);
+}
+
+/* 页面布局 */
+.page {
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 0; left: 0;
+  transition: opacity 1s ease;
+}
+.page.active { display: flex; opacity: 1; }
+
+/* 标题和文字 */
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  color: #ffbfd3;
+}
+p {
+  font-size: 1.3em;
+  max-width: 700px;
+  line-height: 1.8;
+  padding: 0 20px;
+}
+
+/* 按钮 */
+button {
+  background: linear-gradient(45deg, #ff5fa2, #ff85c1);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 30px;
+  margin-top: 20px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+button:hover { transform: scale(1.05); }
+
+/* 封面背景 */
+#cover {
+  background: radial-gradient(circle at center, #2b001f, #000);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 💗 标准爱心 emoji */
+.heart-emoji{
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 200px;
+  line-height: 1;
+  filter: drop-shadow(0 0 18px rgba(255,127,160,.55));
+  animation: beat 1.35s ease-in-out infinite;
+  z-index: 2;
+}
+@keyframes beat{
+  0%,100%{ transform: translate(-50%,-50%) scale(1); }
+  50%   { transform: translate(-50%,-50%) scale(1.15); }
+}
+
+/* 🌹 emoji 玫瑰雨容器 */
+#rose-rain{
+  position: fixed;
+  inset: 0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:1;
+}
+.rose{
+  position:absolute;
+  top:-50px;
+  font-size: 28px; /* emoji 大小 */
+  animation: fall linear infinite;
+  opacity:0.95;
+}
+@keyframes fall{
+  0%   { transform: translateY(-10vh) rotate(0deg);   opacity:0; }
+  10%  { opacity:1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity:0; }
+}
+
+/* 每年背景 */
+.page.year1 { background: radial-gradient(circle at center, #3a0a1e, #000); }
+.page.year2 { background: radial-gradient(circle at center, #1a203a, #000); }
+.page.year3 { background: radial-gradient(circle at center, #002b2b, #000); }
+.page.year4 { background: radial-gradient(circle at center, #331a3a, #000); }
+.page.end   { background: radial-gradient(circle at center, #000, #111); }
+
+/* 渐入效果 */
+.fadein{ animation:fadeIn 1.2s ease forwards; }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+</style>
+</head>
+
+<body>
+<!-- 🌸 音乐播放按钮 -->
+<button id="music-btn" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 100, 150, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  font-size: 25px;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 0 10px rgba(255,150,200,0.6);
+  transition: transform 0.3s;
+">🎵</button>
+
+<!-- 🎵 背景音乐 -->
+<audio id="bg-music" src="music.mp3" autoplay loop></audio>
+
+<!-- 🌹 全屏玫瑰雨 -->
+<div id="rose-rain"></div>
+
+<!-- ====== 封面页 ====== -->
+<div class="page active" id="cover">
+  <div class="heart-emoji">💗</div>
+  <div class="fadein" style="margin-top: 420px; z-index: 2;">
+    <h1>💗 我们的四周年纪念 💗</h1>
+    <p>新加坡与纽约，<br>15000km的距离，却从未远离。</p>
+    <button onclick="nextPage(1)">开始回忆 🌹</button>
+  </div>
+</div>
+
+<!-- ====== 2021 ====== -->
+<div class="page year1" id="page1">
+  <h1>2021-2022 · 初见</h1>
+  <p>那一年，我们第一次见面。<br>
+  初遇。<br>
+  从那天起，我的世界有了方向。</p>
+  <img src="images/2021.JPG" class="photo">
+  <button onclick="nextPage(2)">下一年 ➤</button>
+</div>
+
+<!-- ====== 2022 ====== -->
+<div class="page year2" id="page2">
+  <h1>2022-2023 · 相知</h1>
+  <p>我们一起走过无数个地方，<br>
+  聊天、逛街、看星星、喝咖啡。<br>
+  彼此熟悉的气息，成了最温柔的归宿。</p>
+  <img src="images/2022.JPG" class="photo">
+  <button onclick="prevPage(1)">◀ 上一年</button>
+  <button onclick="nextPage(3)">下一年 ➤</button>
+</div>
+
+<!-- ====== 2023 ====== -->
+<div class="page year3" id="page3">
+  <h1>2023-2024 · 相爱</h1>
+  <p>我们一起走过更多的地方，<br>
+  处处充满着独一无二的回忆。<br>
+  彼此更加相爱。</p>
+  <img src="images/2023.JPG" class="photo">
+  <button onclick="prevPage(2)">◀ 上一年</button>
+  <button onclick="nextPage(4)">下一年 ➤</button>
+</div>
+
+<!-- ====== 2024 ====== -->
+<div class="page year4" id="page4">
+  <h1>2024-2025 · 未来</h1>
+  <p>屏幕两端的我们，用每天的早安和晚安连接世界。<br>
+  再远的距离，也挡不住我想你的频率。<br>
+  四年过去，我们依然相爱。<br>
+  或许时间与距离都在考验，<br>
+  但我相信——下一个四年，我们会在同一个城市，看同一片星空。</p>
+  <img src="images/2024.JPG" class="photo">
+  <button onclick="prevPage(3)">◀ 上一年</button>
+  <button onclick="nextPage(5)">💌 最后一页 ➤</button>
+</div>
+
+<!-- ====== 结尾页 ====== -->
+<div class="page end" id="page5">
+  <h1>🌙 我们的故事仍在继续</h1>
+  <p>回头看，<br>
+  每一个日夜、每一次见面、每一段思念，<br>
+  都在告诉我<br>
+  你是我这辈子非常重要的人。<br>
+  愿未来的路，我们并肩同行，<br>
+  不再隔着屏幕，而是肩并肩看世界。</p>
+  <img src="images/2025.JPG" class="photo">
+  <button onclick="nextPage(0)">🌹 回到封面</button>
+</div>
+
+<script>
+let current = 0;
+const pages = document.querySelectorAll('.page');
+function showPage(index){ pages[current].classList.remove('active'); current = index; pages[current].classList.add('active'); }
+function nextPage(index){ showPage(index); }
+function prevPage(index){ showPage(index); }
+
+/* 🌹 emoji 玫瑰雨 */
+const container = document.getElementById('rose-rain');
+const ROSE_COUNT = 30; // 数量可调
+for (let i = 0; i < ROSE_COUNT; i++) {
+  const rose = document.createElement('div');
+  rose.className = 'rose';
+  rose.textContent = '🌹';
+  rose.style.left = Math.random() * 100 + 'vw';
+  rose.style.animationDuration = (6 + Math.random() * 6) + 's';
+  rose.style.animationDelay = Math.random() * 5 + 's';
+  rose.style.fontSize = (20 + Math.random() * 20) + 'px';
+  container.appendChild(rose);
+}
+const music = document.getElementById('bg-music');
+const musicBtn = document.getElementById('music-btn');
+let playing = false;
+
+musicBtn.addEventListener('click', () => {
+  if (playing) {
+    music.pause();
+    musicBtn.textContent = '🔇';
+  } else {
+    music.play();
+    musicBtn.textContent = '🎵';
+  }
+  playing = !playing;
+});
+
+</script>
+
+</body>
+</html>
